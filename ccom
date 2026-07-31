@@ -1,8 +1,9 @@
 #!/bin/bash
 
-cd CImplementation/
+cd $(dirname ${BASH_SOURCE[0]})
+cd CImplementation
 
-if  [[ $1 == "-c" ]]; then
+if [[ $1 == "-c" ]]; then
     gcc *.c -o exe -lm && echo "[ OK ] Compliation complete"
 elif [[ $1 == "-r" ]]; then
     ./exe
@@ -15,3 +16,5 @@ else
     echo -e "\tr - run the program"
     echo -e "\tcr - first compile, then run the program (assumming no complication errors)"
 fi
+
+cd -

@@ -8,35 +8,29 @@
 #include "MathHandler.h"
 
 int main() {
-    Queue mainQueue;
-    initializeQueue(&mainQueue);
+    struct List mainList;
+    initializeList(&mainList);
 
-    while(1) {
-        printQueue(&mainQueue);
+    appendNewNode(&mainList, 1.0);
+    appendNewNode(&mainList, 2.0);
+    appendNewNode(&mainList, 3.0);
+    appendNewNode(&mainList, 0.0);
 
-        char input[100];
-        char *endptr;
-        double value;
+    printf("The old list is:\n");
+    printList(&mainList);
+    printf("\n");
 
-        fgets(input, sizeof(input), stdin);
+    printf("The value is zeroPresent is: %b\n", isZeroPresent(&mainList));
+    double newValue = multiplyList(&mainList);
+    appendNewNode(&mainList, newValue);
 
-        value = strtod(input, &endptr);
+    printf("The new list is:\n");
+    printList(&mainList);
 
-        if(*endptr == '+') {
-            enqueue(&mainQueue, addQueue(&mainQueue, peek(&mainQueue)));
-        } else if(*endptr == '-') {
-            enqueue(&mainQueue, subtractQueue(&mainQueue, peek(&mainQueue)));
-        } else if(*endptr == '*') {
-            enqueue(&mainQueue, multiplyQueue(&mainQueue, peek(&mainQueue)));
-        } else if(*endptr == '/') {
-            enqueue(&mainQueue, divideQueue(&mainQueue, peek(&mainQueue)));
-        } else if (*endptr == '\n' || *endptr == '\0') {
-            enqueue(&mainQueue, value);
-        } else {
-            printf("Please enter valid input\n");
-        }
-
-    }
+    /* enqueue(&mainQueue, subtractQueue(&mainQueue, peek(&mainQueue))); */
+    /* enqueue(&mainQueue, multiplyQueue(&mainQueue, peek(&mainQueue))); */
+    /* enqueue(&mainQueue, divideQueue(&mainQueue, peek(&mainQueue))); */
+    /* enqueue(&mainQueue, value); */
 
     return 0;
 }
