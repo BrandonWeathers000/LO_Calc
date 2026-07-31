@@ -1,11 +1,8 @@
 /**
     Author: Brandon Weathers
-    Date last modified: 6/16/2026
-    I want to rewrite all of these function so that they return a value
-    rather than manipulate the queue (and return void).
+    Date last modified: 7/31/2026
 */
 
-#include<stdbool.h>
 #include<stdlib.h>
 #include<stdio.h>
 
@@ -21,26 +18,21 @@ struct List{
     struct Node *head;
     struct Node *tail;
 
-    bool zeroPresent;
+    int zeroPresent;
 };
-
-bool isZeroPresent(struct List *list){
-    return list-> zeroPresent;
-}
-
 
 void initializeList(struct List *list){
     list -> head = NULL;
     list -> tail = NULL;
 
-    list -> zeroPresent = false;
+    list -> zeroPresent = 0;
 }
 
 void appendNewNode(struct List *list, double newData){
     struct Node *newNode = malloc(sizeof(struct Node));
     newNode -> data = newData;
     if(newNode -> data == 0.0){
-        list -> zeroPresent = true;
+        list -> zeroPresent = 1;
     }
     newNode -> next = NULL;
 
@@ -103,7 +95,7 @@ double subtractList(struct List *list) {
 }
 
 double multiplyList(struct List *list) {
-    if(list -> zeroPresent == true){
+    if(list -> zeroPresent){
         emptylist(list);
         return 0;
     }
@@ -127,12 +119,20 @@ double divideList(struct List *list) {
     double result = current -> data;
     current = current -> next;
 
+    if(result == 0.0){
+        return 0;
+    }else if(list -> zeroPresent){
+        printf("Cannot divide by 0!\n");
+        return -999.0;
+    }
+
     while(current != NULL){
         result /= current -> data;
         current = current -> next;
     }
 
     emptylist(list);
+
     return result;
 }
 
