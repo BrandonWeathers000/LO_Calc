@@ -1,4 +1,4 @@
-/*
+/**
     Author: Brandon Weathers
     Date last modified: 6/16/2026
     I want to rewrite all of these function so that they return a value
@@ -6,142 +6,162 @@
 */
 
 #include<stdbool.h>
+#include<stdlib.h>
 #include<stdio.h>
-#include<math.h>
 
-#define MAX_SIZE 1000
+#define MAX_SIZE 255
 
-// Start of data structures
-typedef struct {
-    double items[MAX_SIZE];
-    int front;
-    int rear;
-} Queue;
+// Start of data structure
+struct Node{
+    double data;
+    struct Node *next;
+};
 
-void initializeQueue(Queue *q) {
-    q->front = -1;
-    q->rear = 0;
+struct List{
+    struct Node *head;
+    struct Node *tail;
+
+    bool zeroPresent;
+};
+
+bool isZeroPresent(struct List *list){
+    return list-> zeroPresent;
 }
 
-bool isEmpty(Queue *q) {
-    return (q->front == q->rear - 1);
+
+void initializeList(struct List *list){
+    list -> head = NULL;
+    list -> tail = NULL;
+
+    list -> zeroPresent = false;
 }
 
-bool isFull(Queue *q) {
-    return (q->rear == MAX_SIZE);
-}
-
-void enqueue(Queue *q, double value) {
-    if (isFull(q)) {
-        printf("Queue is full\n");
-        return;
+void appendNewNode(struct List *list, double newData){
+    struct Node *newNode = malloc(sizeof(struct Node));
+    newNode -> data = newData;
+    if(newNode -> data == 0.0){
+        list -> zeroPresent = true;
     }
-    q->items[q->rear] = value;
-    q->rear++;
+    newNode -> next = NULL;
+
+    if (list -> head == NULL) list -> head = newNode;
+    else list -> tail -> next = newNode;
+
+    list -> tail = newNode;
 }
 
-void dequeue(Queue *q) {
-    if (isEmpty(q)) {
-        printf("Queue is empty\n");
-        return;
+void printList(struct List *list){
+    struct Node *current = list -> head;
+
+    while(current != NULL){
+        printf("%.2lf\n", current -> data);
+        current = current -> next;
     }
-    q->front++;
 }
 
-double peek(Queue *q) {
-    if (isEmpty(q)) {
-        printf("Queue is empty\n");
-        return NAN; // Return some default value or handle
-                   // error differently
-    }
-    return q->items[q->front + 1];
-}
+void emptylist(struct List *list){
+    struct Node *current = list -> head;
 
-void printQueue(Queue *q) {
-    printf("┌────────────────┐\n");
-    printf("│ Queue (master) │\n");
-    printf("├────────────────┤\n");
-
-    if (isEmpty(q)) {
-        printf("│ Empty          │\n");
-        printf("└────────────────┘\n");
-        return;
-    }
-
-    for (int i = q->front + 1; i < q->rear; i++) {
-        printf("│%-16.2f│\n", q->items[i]);
+    while(current != NULL){
+        struct Node *temp = current;
+        current = current -> next;
+        free(temp);
     }
 
-    printf("└────────────────┘\n");
+    initializeList(list);
 }
-// End of data structures
+// End of data structure
 
-double addQueue(Queue *q, double result) {
-    dequeue(q);
+double addList(struct List *list) {
+    struct Node *current = list -> head;
 
-    if(isEmpty(q)) {
-        return result;
+    double result = current -> data;
+    current = current -> next;
+
+    while(current != NULL){
+        result += current -> data;
+        current = current -> next;
     }
 
-    return addQueue(q, result + peek(q));
+    emptylist(list);
+    return result;
 }
 
-double subtractQueue(Queue *q, double result) {
-    dequeue(q);
+double subtractList(struct List *list) {
+    struct Node *current = list -> head;
 
-    if(isEmpty(q)) {
-        return result;
+    double result = current -> data;
+    current = current -> next;
+
+    while(current != NULL){
+        result -= current -> data;
+        current = current -> next;
     }
 
-    return subtractQueue(q, result - peek(q));
+    emptylist(list);
+    return result;
 }
 
-double multiplyQueue(Queue *q, double result) {
-    dequeue(q);
+double multiplyList(struct List *list) {
+    if(list -> zeroPresent == true){
+        emptylist(list);
+        return 0;
+    }
+    struct Node *current = list -> head;
 
-    if(isEmpty(q)) {
-        return result;
+    double result = current -> data;
+    current = current -> next;
+
+    while(current != NULL){
+        result *= current -> data;
+        current = current -> next;
     }
 
-    return multiplyQueue(q, result * peek(q));
+    emptylist(list);
+    return result;
 }
 
-double divideQueue(Queue *q, double result) {
-    dequeue(q);
+double divideList(struct List *list) {
+    struct Node *current = list -> head;
 
-    if(isEmpty(q)) {
-        return result;
+    double result = current -> data;
+    current = current -> next;
+
+    while(current != NULL){
+        result /= current -> data;
+        current = current -> next;
     }
 
-    return divideQueue(q, result / peek(q));
+    emptylist(list);
+    return result;
 }
 
-double expoQueueRightToLeft(Queue *q) {
-    double base = peek(q);
-    dequeue(q);
-    if(base == 1.0) {
-        return 1;
-    }else if(base == 0.0) {
-        return NAN;
-    }
+/* double expoQueueRightToLeft(Queue *q) { */
+/*     double base = peek(q); */
+/*     dequeue(q); */
+/*     if(base == 1.0) { */
+/*         return 1; */
+/*     }else if(base == 0.0) { */
+/*         return NAN; */
+/*     } */
 
-    double expo = peek(q);
-    dequeue(q);
+/*     double expo = peek(q); */
+/*     dequeue(q); */
 
-    while(!isEmpty(q)) {
-        expo *= peek(q);
-        dequeue(q);
-    }
+/*     while(!isEmpty(q)) { */
+/*         expo *= peek(q); */
+/*         dequeue(q); */
+/*     } */
 
-    return powf(base, expo);
-}
+/*     return powf(base, expo); */
+/* } */
 
-double logQueue(Queue *q, double result) {
-    dequeue(q);
+/* double logQueue(Queue *q, double result) { */
+/*     dequeue(q); */
 
-    if(isEmpty(q)) {
-        return result;
-    }
+/*     if(isEmpty(q)) { */
+/*         return result; */
+/*     } */
 
-    return logQueue(q, log(peek(q)) / log(result));
-}
+/*     return logQueue(q, log(peek(q)) / log(result)); */
+/* } */
