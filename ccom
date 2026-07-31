@@ -16,5 +16,3 @@ else
     echo -e "\tr - run the program"
     echo -e "\tcr - first compile, then run the program (assumming no complication errors)"
 fi
-
-cd -

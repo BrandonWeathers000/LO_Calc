@@ -14,7 +14,6 @@ struct List{
 };
 
 // Start of data structures
-bool isZeroPresent(struct List *list);
 void initializeList(struct List *list);
 void appendNewNode(struct List *list, double newData);
 void printList(struct List *list);

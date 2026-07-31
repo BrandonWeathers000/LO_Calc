@@ -20,17 +20,13 @@ int main() {
     printList(&mainList);
     printf("\n");
 
-    printf("The value is zeroPresent is: %b\n", isZeroPresent(&mainList));
-    double newValue = multiplyList(&mainList);
-    appendNewNode(&mainList, newValue);
+    appendNewNode(&mainList, addList(&mainList));
+    /* appendNewNode(&mainList, subtractList(&mainList)); */
+    /* appendNewNode(&mainList, multiplyList(&mainList)); */
+    /* appendNewNode(&mainList, divideList(&mainList)); */
 
     printf("The new list is:\n");
     printList(&mainList);
-
-    /* enqueue(&mainQueue, subtractQueue(&mainQueue, peek(&mainQueue))); */
-    /* enqueue(&mainQueue, multiplyQueue(&mainQueue, peek(&mainQueue))); */
-    /* enqueue(&mainQueue, divideQueue(&mainQueue, peek(&mainQueue))); */
-    /* enqueue(&mainQueue, value); */
 
     return 0;
 }
