@@ -1,4 +1,4 @@
-* This was to go in scene.setOnKeyPressed(e -> {<HERE>})
+* This was to go in scene.setOnKeyPressed(e -> {<HERE>});
 if(e.getCode() == KeyCode.H) {
     currentIndex = 0;
 }
@@ -28,7 +28,7 @@ if((e.getCode() == KeyCode.MINUS) || (e.getCode() == KeyCode.SUBTRACT)) {
     mathHandlerArray[currentIndex].subQueue();   
 }
 
-                if((e.getCode() == KeyCode.DIGIT8 && e.isShiftDown()) || (e.getCode() == KeyCode.MULTIPLY)) {
+        if((e.getCode() == KeyCode.DIGIT8 && e.isShiftDown()) || (e.getCode() == KeyCode.MULTIPLY)) {
     mathHandlerArray[currentIndex].mulQueue();   
 }
 

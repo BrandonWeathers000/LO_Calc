@@ -83,7 +83,24 @@ public class MainScreen extends Application {
 
         scene.setOnKeyPressed(e -> {
                 /// OPERATIONS ///
-                // Accounting for shift 
+                // Shift operations
+                if(e.isShiftDown()) {
+                    currentInput = "";
+
+                    switch(e.getCode()){
+                        case KeyCode.EQUALS:
+                            mathHandlerArray[currentIndex].addQueue();
+                            break;
+                        case KeyCode.DIGIT8:
+                            mathHandlerArray[currentIndex].mulQueue();
+                            break;
+                        default: 
+                            System.out.println("Some other shift operation");
+                            break;
+                    }
+                }
+
+                // control operations
                 if(e.isControlDown()) {
                     currentInput = "";
 
@@ -124,12 +141,15 @@ public class MainScreen extends Application {
                     }
                 }
 
-                // Non modifier operations
+                // Non-modifier operations
                 switch(e.getCode()){
                     case KeyCode.ADD:
                         mathHandlerArray[currentIndex].addQueue();
                         break;
                     case KeyCode.SUBTRACT:
+                        mathHandlerArray[currentIndex].subQueue();
+                        break;
+                    case KeyCode.MINUS:
                         mathHandlerArray[currentIndex].subQueue();
                         break;
                     case KeyCode.MULTIPLY:
@@ -138,8 +158,11 @@ public class MainScreen extends Application {
                     case KeyCode.DIVIDE:
                         mathHandlerArray[currentIndex].divQueue();
                         break;
+                    case KeyCode.SLASH:
+                        mathHandlerArray[currentIndex].divQueue();
+                        break;
                     default:
-                        System.out.println("Something other operation");
+                        System.out.println("Some other non-modifier operation");
                         break;
                 }
 
