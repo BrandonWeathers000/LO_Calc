@@ -14,20 +14,15 @@ int main() {
 
     if(myLoList.ptr == NULL) return 1; // Memorry allocation failed!
 
-    push(&myLoList, 1.0);
-    push(&myLoList, 2.0);
-    push(&myLoList, 3.0);
-    push(&myLoList, 4.0);
-    push(&myLoList, 5.0);
-    printf("Old list:\n");
-    printLoList(myLoList);
+    for(int i = 1; i < 10'001; i++){
+        push(&myLoList, (double) i);
+    }
 
-    double result = subLoList(&myLoList);
-    clearLoList(&myLoList);
-    push(&myLoList, result);
+    /* printLoList(myLoList); */
 
-    printf("Old list:\n");
-    printLoList(myLoList);
+    for(int i = 1; i < 1'000'000; i++){
+        consecutiveAdd(myLoList, 0, myLoList.size - 1);
+    }
 
     return 0;
 }

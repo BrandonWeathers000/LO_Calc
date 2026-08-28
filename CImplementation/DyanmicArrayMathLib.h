@@ -14,9 +14,8 @@ void printLoList(LoList myLoList);
 void growArray(LoList *myLoList);
 void push(LoList *myLoList, double value);
 void clearLoList(LoList *myLoList);
-double addLoList(LoList *myLoList);
-double subLoList(LoList *myLoList);
-double mulLoList(LoList *myLoList);
-double divLoList(LoList *myLoList);
+double traditionalAdd(LoList myLoList);
+double triangleAdd(LoList myLoList);
+double consecutiveAdd(LoList myLoList, int firstIndex, int secondIndex);
 
 #endif
