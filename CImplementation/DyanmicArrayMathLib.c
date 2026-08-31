@@ -45,8 +45,8 @@ void clearLoList(LoList *myLoList){
 }
 
 double traditionalAdd(LoList myLoList){
-    double sum = 0.0;
-    for(int i = 0; i < (int) myLoList.capacity; i++){
+    double sum = myLoList.ptr[0];
+    for(int i = 1; i < (int) myLoList.size; i++){
         sum += myLoList.ptr[i];
     }
 
@@ -56,14 +56,42 @@ double traditionalAdd(LoList myLoList){
 // This method is about 10'000 times more efficient than traditional add!
 double triangleAdd(LoList myLoList){
     double lastElement = myLoList.ptr[myLoList.size - 1];
-    /* printf("The last element is %lf\n", lastElement); */
 
     return (lastElement * (lastElement + 1)) / 2;
 }
 
 double consecutiveAdd(LoList myLoList, int firstIndex, int secondIndex){
-    double firstNum = myLoList.ptr[firstIndex];
-    double lastNum = myLoList.ptr[secondIndex];
+    return (myLoList.size / 2) * (myLoList.ptr[firstIndex] + myLoList.ptr[secondIndex]);
+}
 
-    return (myLoList.size / 2) * (firstNum + lastNum);
+double traditionalSubtract(LoList myLoList){
+    double firstNumber = myLoList.ptr[0];
+    double sum = traditionalAdd(myLoList);
+
+    return firstNumber - sum;
+}
+
+double traditionalMultiply(LoList myLoList){
+    double product = myLoList.ptr[0];
+    for(int i = 1; i < (int) myLoList.size; i++){
+        if(myLoList.ptr[i] == 0){
+            return 0.0;
+        }
+        if(myLoList.ptr[i] == 1){
+            break;
+        }
+        product *= myLoList.ptr[i];
+    }
+
+    return product;
+}
+
+double traditionalDivide(LoList myLoList){
+    double quotient = myLoList.ptr[0];
+    for(int i = 1; i < (int) myLoList.size; i++){
+        printf("The current quotient is: %lf\n", quotient);
+        quotient /= myLoList.ptr[i];
+    }
+
+    return quotient;
 }

@@ -12,17 +12,15 @@ int main() {
     myLoList.size = 0;
     myLoList.capacity = 1;
 
-    if(myLoList.ptr == NULL) return 1; // Memorry allocation failed!
+    if(myLoList.ptr == NULL) return 1;
 
-    for(int i = 1; i < 10'001; i++){
-        push(&myLoList, (double) i);
+    for(int i = 1; i < 10; i++){      // Pushes ints 1-9
+        push(&myLoList, (double) i);  // When applying division, this is the lowest result.
     }
+
+    printf("The product is: %lf\n", traditionalMultiply(myLoList));
 
     /* printLoList(myLoList); */
-
-    for(int i = 1; i < 1'000'000; i++){
-        consecutiveAdd(myLoList, 0, myLoList.size - 1);
-    }
 
     return 0;
 }

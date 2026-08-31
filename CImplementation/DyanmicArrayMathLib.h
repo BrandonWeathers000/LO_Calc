@@ -17,5 +17,8 @@ void clearLoList(LoList *myLoList);
 double traditionalAdd(LoList myLoList);
 double triangleAdd(LoList myLoList);
 double consecutiveAdd(LoList myLoList, int firstIndex, int secondIndex);
+double traditionalSubtract(LoList myLoList);
+double traditionalMultiply(LoList myLoList);
+double traditionalDivide(LoList myLoList);
 
 #endif
