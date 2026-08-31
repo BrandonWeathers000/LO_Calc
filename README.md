@@ -1,5 +1,5 @@
-# QO_Calc
-This is a calculator based on the queue data structure.
+# LO_Calc
+This is a calculator based on the list data structure.
 
 This application is currently under heavy development. It it not currently fit for use.
 Updates will be posted about when version 1.0 will be released. Thank you for your patience.
@@ -47,5 +47,5 @@ On the other hand, TUI version (written in C) is faster, but lacks some advanced
     3. Special exponentiation (e^x, 10^x, etc)
 4. Constants (pi, e, and phi)
 5. Clipboard interaction
-    1. Pasting lists into queues
-3. Support for additional queues
+    1. Pasting lists into lists
+3. Support for additional lists
