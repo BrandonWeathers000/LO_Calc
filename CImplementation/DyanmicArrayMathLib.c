@@ -7,6 +7,7 @@ typedef struct {
     size_t capacity;
 }LoList;
 
+// LoList operations
 void printLoList(LoList myLoList){
     for(int i = 0; i < (int) myLoList.size; i++){
         printf("%lf\n", myLoList.ptr[i]);
@@ -44,6 +45,7 @@ void clearLoList(LoList *myLoList){
     myLoList->capacity = 1;
 }
 
+// Traditional arthmetic operations
 double traditionalAdd(LoList myLoList){
     double sum = myLoList.ptr[0];
     for(int i = 1; i < (int) myLoList.size; i++){
@@ -53,16 +55,6 @@ double traditionalAdd(LoList myLoList){
     return sum;
 }
 
-// This method is about 10'000 times more efficient than traditional add!
-double triangleAdd(LoList myLoList){
-    double lastElement = myLoList.ptr[myLoList.size - 1];
-
-    return (lastElement * (lastElement + 1)) / 2;
-}
-
-double consecutiveAdd(LoList myLoList, int firstIndex, int secondIndex){
-    return (myLoList.size / 2) * (myLoList.ptr[firstIndex] + myLoList.ptr[secondIndex]);
-}
 
 double traditionalSubtract(LoList myLoList){
     double firstNumber = myLoList.ptr[0];
@@ -94,4 +86,41 @@ double traditionalDivide(LoList myLoList){
     }
 
     return quotient;
+}
+
+// This method is about 10'000 times more efficient than traditional add!
+double consecutiveAdd(LoList myLoList, int firstIndex, int secondIndex){
+    return ((myLoList.ptr[secondIndex] - myLoList.ptr[firstIndex] + 1) * (myLoList.ptr[secondIndex] + myLoList.ptr[firstIndex])) / 2;
+}
+
+double traditionalFactorial(double input){
+    double product = 1.0;
+
+    for(int i = 2; i < input + 1; i++){
+        product *= i;
+    }
+
+    return product;
+}
+
+void listFactorial(LoList *myLoList){
+    // Create spare list
+    LoList spareLoList;
+    spareLoList.ptr = malloc(sizeof(double));
+    spareLoList.size = 0;
+    spareLoList.capacity = 1;
+
+    if(spareLoList.ptr == NULL){
+        printf("Error in memorry creation!");
+    }
+
+    // Read in new input
+    for(int i = 0; i < (int) myLoList->size; i++){
+        double product = traditionalFactorial(myLoList->ptr[i]);
+        /* printf("%lf\n", product); */
+        push(&spareLoList, product);
+    }
+
+    // Set old LoList head to spareList head
+    myLoList->ptr = spareLoList.ptr;
 }

@@ -14,13 +14,17 @@ int main() {
 
     if(myLoList.ptr == NULL) return 1;
 
-    for(int i = 1; i < 10; i++){      // Pushes ints 1-9
-        push(&myLoList, (double) i);  // When applying division, this is the lowest result.
-    }
+    push(&myLoList, 3.0);
+    push(&myLoList, 4.0);
+    push(&myLoList, 5.0);
 
-    printf("The product is: %lf\n", traditionalMultiply(myLoList));
+    printf("Before: \n");
+    printLoList(myLoList);
 
-    /* printLoList(myLoList); */
+    listFactorial(&myLoList);
+
+    printf("After: \n");
+    printLoList(myLoList);
 
     return 0;
 }
